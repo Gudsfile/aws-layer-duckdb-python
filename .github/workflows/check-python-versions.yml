@@ -6,6 +6,8 @@ on:
       - ".github/.duckdb-version"
       - ".github/.lambda-python-runtimes"
       - ".github/workflows/build-layer.yml"
+      - "scripts/check_python_versions.py"
+      - "tests/**"
 
 jobs:
   check:
@@ -17,6 +19,9 @@ jobs:
 
       - name: Install uv
         uses: astral-sh/setup-uv@v6
+
+      - name: Run tests
+        run: uv run --with pytest pytest tests/
 
       - name: Check PYTHON_VERSIONS
         run: uv run scripts/check_python_versions.py
